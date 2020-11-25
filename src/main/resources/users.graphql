@@ -1,0 +1,10 @@
+type Query{
+    userByUsername(username:String):User
+    allUsers:[User]
+}
+type User{
+    username: String
+    password: String
+    lastname: String
+    role: Boolean
+}d
