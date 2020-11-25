@@ -7,4 +7,4 @@ type User{
     password: String
     lastname: String
     role: Boolean
-}d
+}

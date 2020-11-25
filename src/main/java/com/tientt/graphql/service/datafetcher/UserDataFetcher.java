@@ -1,7 +1,9 @@
 package com.tientt.graphql.service.datafetcher;
 
 import com.tientt.graphql.entity.UserEntity;
+import com.tientt.graphql.repository.UserRepository;
 import graphql.schema.DataFetcher;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,19 +14,20 @@ public class UserDataFetcher {
     public UserDataFetcher() {
     }
 
+    @Autowired
+    UserRepository repository;
+
     public DataFetcher getUserByUsernameDataFetcher() {
         return (dataFetchingEnvironment) -> {
-            String username = (String)dataFetchingEnvironment.getArgument("username");
-            return new UserEntity(username, "123", "123", true);
+            String username = dataFetchingEnvironment.getArgument("username");
+            UserEntity user = repository.findByUsername(username);
+            return user;
         };
     }
 
     public DataFetcher getAllUsersDataFetcher() {
         return (dataFetchingEnvironment) -> {
-            List<UserEntity> list = new ArrayList();
-            list.add(new UserEntity("123", "123", "123", true));
-            list.add(new UserEntity("abc", "abc", "abc", true));
-            return list;
+            return repository.findAll();
         };
     }
 }
