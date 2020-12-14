@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping({"/users/api"})
+@RequestMapping("/graph-ql")
 public class UserRestController {
     @Autowired
     GraphQLService graphQLService;
@@ -19,7 +19,7 @@ public class UserRestController {
     }
 
     @PostMapping
-    public ResponseEntity getAllBooks(@RequestBody String query) {
+    public ResponseEntity graphQL(@RequestBody String query) {
         ExecutionResult executionResult = this.graphQLService.graphQL().execute(query);
         return ResponseEntity.ok(executionResult);
     }
